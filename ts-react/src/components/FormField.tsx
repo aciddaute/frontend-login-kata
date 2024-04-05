@@ -1,24 +1,26 @@
-import "./EmailField.css";
+import "./FormField.css";
 
-type EmailFieldProps = {
+type FormFieldProps = {
   id: string;
+  type: "email" | "password";
   labelText: string;
   value: string;
-  onChange: (emailValue: string) => void;
+  onChange: (value: string) => void;
 };
 
-export const EmailField = ({
+export const FormField = ({
   id,
+  type,
   labelText,
   value,
   onChange,
-}: EmailFieldProps) => {
+}: FormFieldProps) => {
   return (
-    <div className="email-field-container">
+    <div className="form-field-container">
       <label htmlFor={id}>{labelText}</label>
       <input
         id={id}
-        type="email"
+        type={type}
         value={value}
         onChange={(event) => onChange(event.target.value)}
       ></input>
