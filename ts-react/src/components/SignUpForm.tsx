@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import "./SignUpForm.css";
 import { Title } from "../components/Title";
 import { Button } from "../components/Button";
@@ -15,23 +15,22 @@ export const SignUpForm = ({ onSuccess }: SignUpFormProps) => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
 
+  const handleOnSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    login(email, password)
+      .then(onSuccess)
+      .catch((error) => {
+        setErrorMessage(error.message);
+      });
+  };
+
   useEffect(() => {
     setErrorMessage(null);
   }, [email, password]);
 
   return (
-    <form
-      className="signup-form"
-      onSubmit={(event) => {
-        event.preventDefault();
-
-        login(email, password)
-          .then(onSuccess)
-          .catch((error) => {
-            setErrorMessage(error.message);
-          });
-      }}
-    >
+    <form className="signup-form" onSubmit={handleOnSubmit}>
       <Title>Sign up with email</Title>
       <p>Enter your email address to create an account.</p>
 

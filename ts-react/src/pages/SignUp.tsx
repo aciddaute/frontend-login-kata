@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import "./SignUp.css";
 import { useNavigate } from "react-router-dom";
 import { SignUpForm } from "../components/SignUpForm";
