@@ -6,6 +6,7 @@ import { Title } from "../components/Title";
 import { Button } from "../components/Button";
 import { translateError } from "../utils/translateError.js";
 import { useNavigate } from "react-router-dom";
+import { login } from "../useCases/login";
 
 export const SignUp = () => {
   const navigate = useNavigate();
@@ -24,19 +25,7 @@ export const SignUp = () => {
         onSubmit={(event) => {
           event.preventDefault();
 
-          fetch("https://backend-login-placeholder.deno.dev/api/users", {
-            method: "POST",
-            body: JSON.stringify({ email, password }),
-            headers: {
-              "Content-Type": "application/json",
-            },
-          })
-            .then((response) => response.json())
-            .then((data) => {
-              if (data.status === "error") {
-                throw new Error(data.code);
-              }
-            })
+          login(email, password)
             .then(() => {
               navigate("/success");
             })
